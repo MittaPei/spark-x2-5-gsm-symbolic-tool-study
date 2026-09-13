@@ -1,5 +1,7 @@
 # Spark-X2.5-4B：原生计算器何时帮忙，何时添乱？
 
+[![Verify evaluation](https://github.com/MittaPei/spark-x2-5-gsm-symbolic-tool-study/actions/workflows/verify.yml/badge.svg)](https://github.com/MittaPei/spark-x2-5-gsm-symbolic-tool-study/actions/workflows/verify.yml)
+
 这是 HER Hack-Astron #6 的一项可复现案例研究。结论先说：在 60 道
 GSM-Symbolic 分层样本上，直接解题策略得到 **45/60（75.00%）**，要求调用
 原生计算器的策略得到 **35/60（58.33%）**。样本内下降 16.67 个百分点，但三个
