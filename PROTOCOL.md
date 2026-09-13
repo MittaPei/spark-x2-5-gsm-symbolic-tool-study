@@ -7,8 +7,8 @@ prompts are synthetic and are not members of the formal sample.
 
 We evaluate how the original BF16 `XHToken/Spark-X2.5-4B` checkpoint behaves
 across the `main`, `p1`, and `p2` complexity levels of Apple GSM-Symbolic, and
-whether an optional native calculator tool repairs arithmetic errors without
-reliably repairing semantic or planning errors.
+whether a deployment policy that explicitly requires a native calculator repairs
+arithmetic errors without reliably repairing semantic or planning errors.
 
 The primary endpoint is strict numeric pass@1. The paired calculator effect is a
 pre-registered secondary endpoint.
@@ -60,12 +60,15 @@ tests.
 
 Every question receives one trajectory in each arm (120 total):
 
-- `no_tool`: no tool schema is supplied.
-- `calculator`: the same prompt is supplied with one native `calculate` function.
+- `no_tool`: a direct-solving policy is supplied and no tool schema is available.
+- `calculator`: a calculator-required policy is supplied with one native
+  `calculator` function.
 
-The system and user text are byte-identical across arms. Only tool availability
-differs. `tool_choice=auto`; using the calculator is optional. Execution order is
-the SHA256 order of `20260913|<eval_id>|<arm>`, which interleaves arms and levels.
+The dataset question is byte-identical across arms. A short, frozen policy prefix
+differs intentionally, so this estimates the joint effect of an explicit tool-use
+policy plus tool access, not tool availability alone. `tool_choice=auto` and the
+calculator policy requires at least one call. Execution order is the SHA256 order
+of `20260913|<eval_id>|<arm>`, which interleaves arms and levels.
 
 - thinking: disabled so the vLLM 0.23 `spark25` parser can expose native tool
   calls; the shared prompt still requires a concise, visible derivation
@@ -83,16 +86,18 @@ multiple turns, but each turn receives only the remaining cumulative budget.
 Completion tokens are the fairness budget; total API tokens are also reported as
 the operational cost. Timing is descriptive because the GPU server is shared.
 
-Shared prompt:
+Common system prompt:
 
 ```text
-Solve the math problem step by step. If a calculator tool is available, you must
-call it at least once, only for arithmetic after deciding what to compute;
-otherwise calculate yourself. After any tool result, show a concise, checkable
-derivation. End with exactly one line: FINAL_ANSWER: <number>, where <number> is
-one integer, decimal, or fraction and has no unit. Do not write anything after
+Solve the supplied math problem carefully. Follow the user policy. After any tool
+result, give a concise, checkable derivation. End with exactly one line:
+FINAL_ANSWER: <number>, where <number> has no unit. Do not write anything after
 that line.
 ```
+
+The direct prefix says no calculator is available and asks for a manual solution.
+The calculator prefix requires at least one native call after choosing the
+expression. Both then append `PROBLEM:` and the exact unmodified dataset question.
 
 ## Tool boundary
 
@@ -166,3 +171,11 @@ scorer removes at most the model template's final `</think>` boundary before
 applying the same anchored final-answer rule. This is interface calibration on
 three synthetic prompts, not adaptation to formal scores. The failed pilot
 summary and replacement pilot are retained as evidence.
+
+That replacement pilot produced six numerically correct outputs but still made
+zero native calls: a conditional shared instruction was insufficient for this
+model/runtime. With formal generation still at zero, the final pilot amendment
+reframed the arms as two explicit deployment policies. The calculator arm now
+uses an arm-specific mandatory-tool prefix; the direct arm uses a manual-solving
+prefix. The report therefore attributes any paired difference to the combined
+policy-plus-tool intervention, never to tool availability in isolation.

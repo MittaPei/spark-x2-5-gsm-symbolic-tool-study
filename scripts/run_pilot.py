@@ -54,7 +54,7 @@ def main() -> int:
     parser.add_argument("--model", default="spark-x2.5-4b")
     parser.add_argument("--protocol-commit", required=True)
     parser.add_argument("--runtime-json", type=Path, required=True)
-    parser.add_argument("--output-dir", type=Path, default=Path("evidence/pilot-v2"))
+    parser.add_argument("--output-dir", type=Path, default=Path("evidence/pilot-v3"))
     args = parser.parse_args()
     runtime = json.loads(args.runtime_json.read_text(encoding="utf-8"))
     failures: list[str] = []
@@ -83,7 +83,12 @@ def main() -> int:
                 "correct": value == expected,
             }
             tool_calls += len(record["tool_calls"])
-            if record["status"] != "completed" or value != expected:
+            missing_required_tool = arm == "calculator" and not record["tool_calls"]
+            if (
+                record["status"] != "completed"
+                or value != expected
+                or missing_required_tool
+            ):
                 failures.append(f"{sample['eval_id']}:{arm}")
             atomic_json(args.output_dir / f"{sample['eval_id']}--{arm}.json", record)
     summary = {

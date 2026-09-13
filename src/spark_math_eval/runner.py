@@ -16,12 +16,19 @@ from . import DATASET_REVISION, MODEL_REVISION
 from .calculator import CalculatorError, calculate
 
 SYSTEM_PROMPT = (
-    "Solve the math problem step by step. If a calculator tool is available, you "
-    "must call it at least once, only for arithmetic after deciding what to "
-    "compute; otherwise calculate yourself. After any tool result, show a concise, "
-    "checkable derivation. End with exactly one line: FINAL_ANSWER: <number>, "
-    "where <number> is one integer, decimal, or fraction and has no unit. Do not "
-    "write anything after that line."
+    "Solve the supplied math problem carefully. Follow the user policy. After any "
+    "tool result, give a concise, checkable derivation. End with exactly one line: "
+    "FINAL_ANSWER: <number>, where <number> has no unit. Do not write anything "
+    "after that line."
+)
+DIRECT_POLICY = (
+    "POLICY: No calculator is available. Solve manually and show a concise, "
+    "checkable derivation."
+)
+CALCULATOR_POLICY = (
+    "POLICY: You must call the calculator tool at least once before giving a final "
+    "answer. First determine the arithmetic expression that represents the story, "
+    "then call the tool."
 )
 CALCULATOR_TOOL = {
     "type": "function",
@@ -103,6 +110,8 @@ def run_episode(
         raise ValueError("forbidden answer/canary material detected in question")
 
     seed = episode_seed(str(sample["eval_id"]))
+    policy = CALCULATOR_POLICY if arm == "calculator" else DIRECT_POLICY
+    user_content = f"{policy}\n\nPROBLEM:\n{question}"
     record: dict[str, Any] = {
         "schema_version": 1,
         "eval_id": sample["eval_id"],
@@ -129,10 +138,13 @@ def run_episode(
         "request": {
             "system_prompt": SYSTEM_PROMPT,
             "system_prompt_sha256": sha256_text(SYSTEM_PROMPT),
+            "policy": policy,
+            "policy_sha256": sha256_text(policy),
             "user_prompt_ref": (
                 f"third_party/gsm_symbolic_selected.jsonl#{sample['eval_id']}"
             ),
             "user_prompt_sha256": sha256_text(question),
+            "rendered_user_message_sha256": sha256_text(user_content),
             "tool_schema": CALCULATOR_TOOL if arm == "calculator" else None,
         },
         "runtime": runtime,
@@ -144,7 +156,7 @@ def run_episode(
 
     messages: list[dict[str, Any]] = [
         {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user", "content": question},
+        {"role": "user", "content": user_content},
     ]
     remaining = max_completion_tokens
     executed_tool_calls = 0

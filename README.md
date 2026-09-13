@@ -12,7 +12,7 @@
 | 权重 | 官方原始 BF16，无量化 |
 | 数据 | `apple/GSM-Symbolic@93b5b3758d9d9841ffe81d6cd2ae2b030685b078` |
 | 样本 | 20 个模板键 × `main/p1/p2` = 60 题 |
-| 条件 | 每题各跑一次 `no_tool` 与 `calculator` |
+| 条件 | 每题各跑一次直接解题策略与强制原生计算器策略 |
 | 主指标 | 严格 numeric pass@1，无法解析一律计错 |
 | 工具边界 | 最多 2 次 AST 白名单精确算术调用，不执行生成代码 |
 | 推理预算 | 每条轨迹累计最多 4096 assistant completion tokens |
@@ -50,4 +50,3 @@ uv run ruff format --check .
 本仓库原创代码按 [Apache-2.0](LICENSE) 发布。必要的 Apple GSM-Symbolic 原文摘录仍按 CC BY-NC-ND 4.0 使用，详见 [`THIRD_PARTY.md`](THIRD_PARTY.md)，不受本仓库 Apache-2.0 许可覆盖。本仓库不包含模型权重。
 
 评测允许使用 AI 辅助执行和整理；最终提交者会复核公开结果并对其负责。模型输出只作为待评分、待审阅的实验数据，不作为未经验证的事实。
-
