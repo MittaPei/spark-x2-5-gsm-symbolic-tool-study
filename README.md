@@ -33,7 +33,7 @@ config 的配对检验经 Holm 校正后均不显著，因此不能外推成“�
 不是纯粹的工具可用性因果效应。三个 config 共享 `(id, instance)` 模板键，但题面
 不同；跨 config 结果只是同模板分层趋势，不能当作同题反事实配对。
 
-完整的预注册选择、prompt、解析器、失败处理和统计口径见
+完整的运行前冻结选择、prompt、解析器、失败处理和统计口径见
 [`PROTOCOL.md`](PROTOCOL.md)。正式生成开始后没有改样本、prompt、工具、参数、
 评分器或 120 条分母。
 
@@ -107,8 +107,8 @@ config 的配对检验经 Holm 校正后均不显著，因此不能外推成“�
 标准数学集，也已有受限计算器条件。本案例不以贬低或复刻这些方向为目标，而是在
 以下组合上提供互补证据：
 
-1. 使用 **4B 原始 BF16**，在 GSM-Symbolic `main/p1/p2` 上做模板键配平，而不是
-   只展示若干成功题或单一平均分；
+1. 使用 **4B 原始 BF16**，在 GSM-Symbolic `main/p1/p2` 上做模板键配平，同时
+   报告逐层结果与汇总，避免单一均值掩盖复杂度差异；
 2. 对完全相同题面做直接策略/原生函数调用策略 A/B，公开每一轮 function call、
    参数、执行器返回和终局输出；
 3. 把模型的工具采纳、执行器成功、语义建模、调用上限和末答交付分别计量，不把
@@ -215,6 +215,8 @@ uv run python scripts/run_evaluation.py \
   --runtime-json evidence/environment.json \
   --protocol-commit cdfe83a112308380c6a4bae5adb9de14f38c7bc2 \
   --output-dir runs/live --log runs/run.log --workers 4
+
+uv run python scripts/summarize.py --live-dir runs/live
 ```
 
 固定 seed 和 greedy decoding 降低随机性，但并行调度、GPU kernel 与运行时差异意味着

@@ -1,4 +1,5 @@
 import json
+from copy import deepcopy
 from pathlib import Path
 
 import pytest
@@ -55,3 +56,25 @@ def test_formal_artifact_validation_rejects_duplicate_job() -> None:
     records[1] = records[0]
     with pytest.raises(ValueError, match="120 unique jobs"):
         summarize(records, selected)
+
+
+def test_formal_artifact_validation_binds_terminal_response() -> None:
+    root = Path(__file__).parents[1]
+    records = read_jsonl(root / "runs/raw.jsonl")
+    selected = read_jsonl(root / "third_party/gsm_symbolic_selected.jsonl")
+    tampered = deepcopy(records)
+    completed = next(row for row in tampered if row["status"] == "completed")
+    completed["terminal_content"] += " altered"
+    with pytest.raises(ValueError, match="terminal content mismatch"):
+        summarize(tampered, selected)
+
+
+def test_formal_artifact_validation_binds_native_tool_transcript() -> None:
+    root = Path(__file__).parents[1]
+    records = read_jsonl(root / "runs/raw.jsonl")
+    selected = read_jsonl(root / "third_party/gsm_symbolic_selected.jsonl")
+    tampered = deepcopy(records)
+    called = next(row for row in tampered if row["tool_calls"])
+    called["tool_calls"][0]["arguments"] = '{"expression":"1+1"}'
+    with pytest.raises(ValueError, match="tool transcript mismatch"):
+        summarize(tampered, selected)

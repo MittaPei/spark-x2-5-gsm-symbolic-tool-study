@@ -31,7 +31,17 @@ def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--live-dir", type=Path, default=Path("runs/live"))
+    source = parser.add_mutually_exclusive_group()
+    source.add_argument(
+        "--live-dir",
+        type=Path,
+        help="directory of individual formal records after a new model run",
+    )
+    source.add_argument(
+        "--raw-input",
+        type=Path,
+        help="published aggregate raw JSONL (default: runs/raw.jsonl)",
+    )
     parser.add_argument(
         "--selected",
         type=Path,
@@ -45,7 +55,11 @@ def main() -> int:
         "--summary-output", type=Path, default=Path("results/summary.json")
     )
     args = parser.parse_args()
-    records = load_live_records(args.live_dir)
+    records = (
+        load_live_records(args.live_dir)
+        if args.live_dir is not None
+        else read_jsonl(args.raw_input or Path("runs/raw.jsonl"))
+    )
     selected = read_jsonl(args.selected)
     scored, summary = summarize(records, selected)
     write_jsonl(args.raw_output, records)

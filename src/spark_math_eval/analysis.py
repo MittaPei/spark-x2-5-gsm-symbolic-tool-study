@@ -133,6 +133,10 @@ def validate_formal_records(
     sample_map = {row["eval_id"]: row for row in selected}
     if len(selected) != 60 or len(sample_map) != 60:
         raise ValueError("selected excerpt must contain 60 unique eval_id values")
+    if Counter(str(row.get("config")) for row in selected) != Counter(
+        {config: 20 for config in CONFIGS}
+    ):
+        raise ValueError("selected excerpt must contain 20 rows per config")
     expected = {(eval_id, arm) for eval_id in sample_map for arm in ARMS}
     observed = [(row.get("eval_id"), row.get("arm")) for row in records]
     if len(records) != 120 or set(observed) != expected or len(set(observed)) != 120:
@@ -196,6 +200,10 @@ def validate_formal_records(
         if request.get("rendered_user_message_sha256") != sha256_text(rendered):
             raise ValueError(f"{record['eval_id']}/{arm}: mismatched rendered prompt")
         turns = record.get("turns", [])
+        if not turns or [turn.get("turn") for turn in turns] != list(
+            range(1, len(turns) + 1)
+        ):
+            raise ValueError(f"{record['eval_id']}/{arm}: invalid turn sequence")
         expected_turn_seeds = [record["seed"] + index for index in range(len(turns))]
         if [turn.get("seed") for turn in turns] != expected_turn_seeds:
             raise ValueError(f"{record['eval_id']}/{arm}: mismatched turn seeds")
@@ -210,6 +218,41 @@ def validate_formal_records(
             raise ValueError(f"{record['eval_id']}/{arm}: mismatched completion usage")
         if record.get("tool_call_count") != len(record.get("tool_calls", [])):
             raise ValueError(f"{record['eval_id']}/{arm}: mismatched tool-call count")
+        emitted_calls = [
+            {
+                "id": call.get("id"),
+                "name": call.get("function", {}).get("name"),
+                "arguments": call.get("function", {}).get("arguments"),
+            }
+            for turn in turns
+            for call in turn.get("message", {}).get("tool_calls", [])
+        ]
+        recorded_calls = [
+            {
+                "id": call.get("id"),
+                "name": call.get("name"),
+                "arguments": call.get("arguments"),
+            }
+            for call in record.get("tool_calls", [])
+        ]
+        if emitted_calls != recorded_calls:
+            raise ValueError(f"{record['eval_id']}/{arm}: tool transcript mismatch")
+        if arm == "no_tool" and recorded_calls:
+            raise ValueError(f"{record['eval_id']}/{arm}: unexpected tool call")
+        if record.get("status") == "completed":
+            final_turn = turns[-1]
+            if final_turn.get("message", {}).get("tool_calls"):
+                raise ValueError(f"{record['eval_id']}/{arm}: terminal turn has calls")
+            if record.get("terminal_content") != final_turn.get("message", {}).get(
+                "content"
+            ):
+                raise ValueError(
+                    f"{record['eval_id']}/{arm}: terminal content mismatch"
+                )
+            if record.get("terminal_finish_reason") != final_turn.get("finish_reason"):
+                raise ValueError(
+                    f"{record['eval_id']}/{arm}: terminal finish reason mismatch"
+                )
     return {"protocol_commit": protocol_commits.pop()}
 
 

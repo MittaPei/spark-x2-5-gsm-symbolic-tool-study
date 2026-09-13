@@ -90,6 +90,8 @@ def _verify_generated_artifacts() -> None:
         check=True,
         capture_output=True,
     )
+    if any(record.get("runtime") != environment for record in raw):
+        raise ValueError("raw runtime snapshots differ from evidence/environment.json")
     if raw != sorted(raw, key=lambda row: job_order(row["eval_id"], row["arm"])):
         raise ValueError("runs/raw.jsonl is not in the deterministic job order")
     scored_by_key = {(row["eval_id"], row["arm"]): row for row in scored}
@@ -135,10 +137,17 @@ def _verify_generated_artifacts() -> None:
 
 def _verify_checksums() -> None:
     expected = {}
-    for line in (ROOT / "SHA256SUMS").read_text(encoding="utf-8").splitlines():
-        digest, relative = line.split("  ", 1)
-        expected[relative] = digest
     paths = evidence_files()
+    checksum_lines = (ROOT / "SHA256SUMS").read_text(encoding="utf-8").splitlines()
+    checksum_paths = []
+    for line in checksum_lines:
+        digest, relative = line.split("  ", 1)
+        if relative in expected:
+            raise ValueError(f"duplicate checksum path: {relative}")
+        expected[relative] = digest
+        checksum_paths.append(relative)
+    if checksum_paths != [path.as_posix() for path in paths]:
+        raise ValueError("SHA256SUMS is not in canonical path order")
     actual_names = {path.as_posix() for path in paths}
     if set(expected) != actual_names:
         raise ValueError("SHA256SUMS does not cover exactly the public evidence files")
