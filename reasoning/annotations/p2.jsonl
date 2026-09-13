@@ -1,0 +1,29 @@
+{"eval_id":"p2-id05-i28","arm":"calculator","primary_label":"dataset_ambiguity","flags":["tool_call","self_corrected"],"evidence":"题面把茶匙、杯和汤匙的数值合计为 180，量纲并不相容；轨迹放弃统一单位换算后采用数据集意图 45x+9x+90x+18x=180，两次有效调用验证了 50。"}
+{"eval_id":"p2-id10-i44","arm":"calculator","primary_label":"coherent","flags":["tool_call"],"evidence":"轨迹按 10×0.5+20×0.4+80÷2×0.3=25 分段计费，再应用八折得到 20，工具返回与末行答案一致。"}
+{"eval_id":"p2-id16-i36","arm":"no_tool","primary_label":"truncation","flags":[],"evidence":"轨迹已算出周三 411、周四 783 并推得预期均值 796，但在反复讨论 Friday 的语义时以 finish_reason=length 截断，没有 FINAL_ANSWER。"}
+{"eval_id":"p2-id16-i36","arm":"calculator","primary_label":"tool_protocol","flags":["tool_call"],"evidence":"两次有效调用分别返回 411 和 783，第三轮却在工具已不可用时输出文字化 `<tool_call>` 请求 411+783，因而没有提交 FINAL_ANSWER。"}
+{"eval_id":"p2-id19-i05","arm":"calculator","primary_label":"coherent","flags":["tool_call","self_corrected"],"evidence":"第一次工具式误把科目题数纳入总分而得到 38，轨迹明确重算为 8+3+3+3，并由第二次调用验证 17 后正确作答。"}
+{"eval_id":"p2-id22-i02","arm":"calculator","primary_label":"coherent","flags":["tool_call"],"evidence":"叉子守恒式 x+16-7-8+2×8=39 化为 x+17=39，工具验证 39-17=22，推导与答案一致。"}
+{"eval_id":"p2-id24-i08","arm":"no_tool","primary_label":"semantic_planning","flags":[],"evidence":"轨迹把每盎司热量错列成 200÷5=40（应为 5×200÷400=2.5），同时未把已消耗的 50 卡路里加回 Bodhi 的需求，故得到 38.75 而非 640。"}
+{"eval_id":"p2-id24-i08","arm":"calculator","primary_label":"semantic_planning","flags":["tool_call"],"evidence":"虽正确得到 2.5 卡/盎司，却把运动消耗写成 3450-1100-50 而非 3450-1100+50，工具忠实执行了错误方程并给出 600。"}
+{"eval_id":"p2-id25-i38","arm":"no_tool","primary_label":"relevant_clause_omission","flags":[],"evidence":"轨迹正确得到 13 名出席的足球队员和 39 名舞蹈/机器人组员，却排除了每个三组各 3 名、同样要离校参赛的啦啦队员，得到 52 而非 13+39+9=61。"}
+{"eval_id":"p2-id25-i38","arm":"calculator","primary_label":"tool_protocol","flags":["tool_call"],"evidence":"两次有效调用后第三轮输出了文字化 `<tool_call>` 而没有 FINAL_ANSWER；此前还把舞蹈与机器人合成一组，只计 6 名而非三组共 9 名啦啦队员。"}
+{"eval_id":"p2-id26-i27","arm":"no_tool","primary_label":"semantic_planning","flags":["right_answer_wrong_reasoning"],"evidence":"轨迹错误声称连续减少 20% 和 50% 等于减少 70%（应为保留 0.8×0.5=0.4），却同时采用 28×0.5=14 得到正确末答 1680，正文保留了互相矛盾的百分比解释。"}
+{"eval_id":"p2-id26-i27","arm":"calculator","primary_label":"tool_protocol","flags":["tool_call"],"evidence":"工具已分别验证首月 1050 和次月 630，但第三轮把 1050+630 输出成不可执行的文字化 `<tool_call>`，没有 FINAL_ANSWER。"}
+{"eval_id":"p2-id27-i42","arm":"no_tool","primary_label":"semantic_planning","flags":[],"evidence":"轨迹先把五天都按常规计为 5×10=50，又额外加上加班日 11，重复计算最后一天；正确总数应为 4×10+11=51。"}
+{"eval_id":"p2-id27-i42","arm":"calculator","primary_label":"coherent","flags":["tool_call","self_corrected"],"evidence":"第一次工具式把“少 2 封”误写成乘以 0.5-0.2，轨迹随后明确改为 0.5×24-2，并由第二次调用验证 4×10+11=51。"}
+{"eval_id":"p2-id30-i35","arm":"no_tool","primary_label":"coherent","flags":[],"evidence":"轨迹算得 Beatriz 支出 81.27、余 11，Faisal 折后支出 90、余 10，两者差额 1 与金标一致。"}
+{"eval_id":"p2-id30-i35","arm":"calculator","primary_label":"tool_protocol","flags":["tool_call"],"evidence":"轨迹在正文中已正确算出两人分别余 11 和 10，但两次有效调用后又输出文字化 `<tool_call>` 请求计算油漆费，最终没有 FINAL_ANSWER。"}
+{"eval_id":"p2-id33-i27","arm":"no_tool","primary_label":"dataset_ambiguity","flags":[],"evidence":"按题面“每周比此前少 5 个”的字面含义，Kayla 由 36÷6=6 降为 1 个/周，故 Uma 需 [135-75-4]÷4=14；金标 10 只有把该句理解为 Kayla 改成每周收集 5 个才成立。"}
+{"eval_id":"p2-id33-i27","arm":"calculator","primary_label":"dataset_ambiguity","flags":["calculator_policy_noncompliance"],"evidence":"轨迹未调用强制 calculator，但按“由 6 降低 5”完整算得 Uma 每周需 14；其与金标 10 的冲突来自题句 by 5 与 to 5 的歧义，而非该推导的算术错误。"}
+{"eval_id":"p2-id38-i31","arm":"no_tool","primary_label":"coherent","flags":[],"evidence":"轨迹对 12 个贝果的 15 元原价应用八折得到 12，再算 9 个面包 45 与其差额 33，推导和金标一致。"}
+{"eval_id":"p2-id38-i31","arm":"calculator","primary_label":"tool_protocol","flags":["tool_call"],"evidence":"两次工具调用得到面包 45、贝果未折前 15，第三轮又输出文字化 `<tool_call>` 而无 FINAL_ANSWER；此前推导也漏掉了购买至少 3 个贝果的 20% 折扣并预判 30。"}
+{"eval_id":"p2-id39-i26","arm":"calculator","primary_label":"coherent","flags":["tool_call"],"evidence":"受伤后每层 30 分钟，90 层共 2700 分钟；除以 5×10×60=3000 分钟得到 90%，两次工具返回与末答一致。"}
+{"eval_id":"p2-id40-i40","arm":"no_tool","primary_label":"arithmetic","flags":[],"evidence":"轨迹把 4 千克原价 80 的四分之一折扣 20 错算成该 4 千克售价为 20-20=0；正确促销价为 60，再加第 21 千克 20，最终应余 544 而非 604。"}
+{"eval_id":"p2-id40-i40","arm":"calculator","primary_label":"tool_protocol","flags":["tool_call"],"evidence":"两次有效调用只计了促销覆盖的 20 千克并遗漏第 21 千克的 20 元，第三轮又以文字化 `<tool_call>` 结束且没有 FINAL_ANSWER。"}
+{"eval_id":"p2-id44-i39","arm":"no_tool","primary_label":"semantic_planning","flags":[],"evidence":"轨迹反转了“男孩人数是女孩的三分之一”，写成 48=B/3 得到 144；正确是 B=48/3=16，女孩占 48/(48+16)=75%。"}
+{"eval_id":"p2-id44-i39","arm":"calculator","primary_label":"coherent","flags":["calculator_policy_noncompliance"],"evidence":"轨迹未按 calculator 策略调用工具，但直接以男孩 48/3=16、总数 64 算出女孩占 75%，数学推导完整正确。"}
+{"eval_id":"p2-id45-i31","arm":"no_tool","primary_label":"truncation","flags":[],"evidence":"轨迹在 4096-token 上限以 finish_reason=length 截断，持续枚举间距解释而未提交 FINAL_ANSWER；数据集意图是 126÷14=9 株、补买 3 株后 18-10=8。"}
+{"eval_id":"p2-id45-i31","arm":"calculator","primary_label":"tool_protocol","flags":["tool_call"],"evidence":"正文已正确推得共需 9 株、补买 3 株且折后花 8，但两次有效调用后第三轮输出文字化 `<tool_call>` 计算 3×6，没有 FINAL_ANSWER。"}
+{"eval_id":"p2-id49-i04","arm":"no_tool","primary_label":"coherent","flags":[],"evidence":"轨迹算得前四栋有效 376 户、末栋 600 户，五次收运共 4880 次，按 0.25 法郎并加 10% 小费得到 1342。"}
+{"eval_id":"p2-id49-i04","arm":"calculator","primary_label":"tool_protocol","flags":["tool_call"],"evidence":"两次有效调用分别返回前四栋 1880 次和末栋 3000 次，第三轮却把完整收益式写成文字化 `<tool_call>`，因此没有 FINAL_ANSWER，尽管先前推导指向 1342。"}

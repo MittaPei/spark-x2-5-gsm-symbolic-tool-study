@@ -1,0 +1,23 @@
+{"eval_id":"main-id10-i44","arm":"calculator","primary_label":"tool_protocol","flags":["tool_call"],"evidence":"两次有效调用分别得到 22×0.5=11、(52−22)×0.1=3，但调用额度耗尽后终局仍输出文字化第三个 `<tool_call>`，没有 FINAL_ANSWER；正确合计为 14。"}
+{"eval_id":"main-id10-i44","arm":"no_tool","primary_label":"coherent","flags":[],"evidence":"22×0.5+(52−22)×0.1=11+3=14，推导与终值一致。"}
+{"eval_id":"main-id16-i36","arm":"calculator","primary_label":"coherent","flags":["tool_call"],"evidence":"周六/周日饼干为 22/34 箱、橙派为 14/29 箱，56×12+43×25=1747，工具表达式与终值一致。"}
+{"eval_id":"main-id19-i05","arm":"calculator","primary_label":"tool_protocol","flags":["tool_call"],"evidence":"首轮已正确得到地理 0.6×5=3、其余两科合计 45/9=5、总分 8；两次有效调用后却以文字化第三次调用结束，无 FINAL_ANSWER。"}
+{"eval_id":"main-id19-i05","arm":"no_tool","primary_label":"truncation","flags":["self_corrected"],"evidence":"在误把“其余”理解为 40% 等反复 false start 后，已自行恢复到 3+45/9=8，但 length 截断发生在输出 FINAL_ANSWER 前。"}
+{"eval_id":"main-id21-i34","arm":"calculator","primary_label":"coherent","flags":["tool_call"],"evidence":"已知时长 5+5+5.5+12=27.5，小于 29 的 1.5 小时对应 1.5/0.25=6 集，工具校验总时长为 29。"}
+{"eval_id":"main-id25-i38","arm":"calculator","primary_label":"tool_protocol","flags":["tool_call"],"evidence":"20%×105=21、剩余 84、其 25%=21，正确应合计 42；两次有效调用后终局变成文字化第三次调用且无答案标记。"}
+{"eval_id":"main-id25-i38","arm":"no_tool","primary_label":"coherent","flags":[],"evidence":"排球队 21 人，余下学生中的辩论/合唱成员合计 21 人，因此 21+21=42。"}
+{"eval_id":"main-id26-i27","arm":"calculator","primary_label":"dataset_ambiguity","flags":["tool_call"],"evidence":"5+2+6=13/天无误，但题面没有指定“一个月”的天数；390 依赖未明示的 30 天约定，不同月份会有不同答案。"}
+{"eval_id":"main-id27-i42","arm":"calculator","primary_label":"coherent","flags":["tool_call"],"evidence":"每天需回复 100×(1−0.30)=70 封，6 天为 420，工具与终值一致。"}
+{"eval_id":"main-id30-i35","arm":"calculator","primary_label":"coherent","flags":["tool_call"],"evidence":"螺丝花费 30×0.94=28.2，72.2−28.2=44.0，完整且一致。"}
+{"eval_id":"main-id31-i02","arm":"calculator","primary_label":"coherent","flags":["tool_call"],"evidence":"Santiago 为 62+12=74 岁，平均 (62+74)/2=68，工具返回 68。"}
+{"eval_id":"main-id38-i31","arm":"calculator","primary_label":"coherent","flags":["tool_call"],"evidence":"9 个面包 9×9=81，4 个饼干 4×4=16，价差 65，工具和答案一致。"}
+{"eval_id":"main-id39-i26","arm":"calculator","primary_label":"tool_protocol","flags":["tool_call"],"evidence":"60×30=1800 分、5×12×60=3600 分，所占比例为 50%；两次有效调用后终局变成文字化第三次调用且无 FINAL_ANSWER。"}
+{"eval_id":"main-id39-i26","arm":"no_tool","primary_label":"coherent","flags":[],"evidence":"60 层共需 30 小时，分摊 5 天为每天 6 小时，占 12 小时工作日的 6/12=50%。"}
+{"eval_id":"main-id40-i40","arm":"calculator","primary_label":"tool_protocol","flags":["tool_call"],"evidence":"在已把“6 pounds 1/2 off”误读成 6.5 磅半价后，两次调用额度耗尽，终局又输出文字化第三次调用且无 FINAL_ANSWER。"}
+{"eval_id":"main-id40-i40","arm":"no_tool","primary_label":"relevant_clause_omission","flags":[],"evidence":"模型只计 15 磅原价和 6 磅半价，漏掉实际购买 23 磅中的另外 2 磅原价；补上 2×21=42 后应为 1400−(315+63+42+11.5+307.5)=661，而非 703。"}
+{"eval_id":"main-id41-i23","arm":"calculator","primary_label":"coherent","flags":["tool_call"],"evidence":"绿色与黑色共 7+5×7=42，紫色为 48−42=6；工具表达式把三色重新相加为 48，终局推导一致。"}
+{"eval_id":"main-id41-i23","arm":"no_tool","primary_label":"coherent","flags":[],"evidence":"7+35+p=48，所以 p=48−42=6，推导与终值一致。"}
+{"eval_id":"main-id45-i31","arm":"calculator","primary_label":"truncation","flags":["calculator_policy_noncompliance"],"evidence":"轨迹未调用工具，并在反复尝试间距解释时被 length 截断且没有 FINAL_ANSWER；按 4n+14(n−1) 的常规边缘间距模型最多放 10 株，而参考值 28 将 14 英尺直接当作每株间距，题面本身也存在歧义。"}
+{"eval_id":"main-id45-i31","arm":"no_tool","primary_label":"truncation","flags":[],"evidence":"轨迹围绕 4n+14(n−1)=168 得到非整数后不断循环，最终被 length 截断且没有 FINAL_ANSWER；按常规边缘间距模型最多放 10 株，与参考解把 14 英尺当作每株占用长度的解释不一致。"}
+{"eval_id":"main-id49-i04","arm":"calculator","primary_label":"truncation","flags":["calculator_policy_noncompliance"],"evidence":"模型已算出总公寓数 1680，却又额外乘一次 3 个小区而得到 15120；正确服务次数是 1680×3=5040，且轨迹未调用工具便被 length 截断、没有 FINAL_ANSWER。"}
+{"eval_id":"main-id49-i04","arm":"no_tool","primary_label":"coherent","flags":[],"evidence":"第三个小区有 (300+300)×1.8=1080 户，总计 1680 户；每户每周收 3 次、每次 0.45 美元，所以 1680×3×0.45=2268。"}

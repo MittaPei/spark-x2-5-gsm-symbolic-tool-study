@@ -1,0 +1,37 @@
+{
+  "by_arm": {
+    "calculator": 45,
+    "no_tool": 30
+  },
+  "by_config": {
+    "main": 23,
+    "p1": 23,
+    "p2": 29
+  },
+  "flags": {
+    "calculator_policy_noncompliance": 5,
+    "right_answer_wrong_reasoning": 1,
+    "self_corrected": 8,
+    "tool_call": 40
+  },
+  "method": "Deterministic selection followed by AI-assisted full-trajectory review; objective facts are regenerated and annotations are schema-checked.",
+  "primary_labels": {
+    "arithmetic": 1,
+    "coherent": 32,
+    "dataset_ambiguity": 4,
+    "relevant_clause_omission": 4,
+    "semantic_planning": 7,
+    "tool_protocol": 18,
+    "truncation": 9
+  },
+  "reviewed_questions": 45,
+  "reviewed_trajectories": 75,
+  "rwra_definition": "A strict correct answer with a concrete, uncorrected equation error or material logical omission in the visible derivation.",
+  "schema_version": 1,
+  "selection_reason_occurrences": {
+    "paired_disagreement": 32,
+    "preselected_lowest_question_hash": 6,
+    "tool_call_or_error": 40,
+    "wrong_or_unparseable": 40
+  }
+}

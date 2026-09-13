@@ -1,0 +1,13 @@
+{
+  "calculator_policy_compliant": 2,
+  "calculator_policy_total": 3,
+  "correct": 6,
+  "failures": [],
+  "formal_sample_overlap": 0,
+  "native_tool_calls": 2,
+  "policy_noncompliance": [
+    "synthetic-pilot-03"
+  ],
+  "status": "PASS",
+  "trajectories": 6
+}

@@ -67,8 +67,10 @@ Every question receives one trajectory in each arm (120 total):
 The dataset question is byte-identical across arms. A short, frozen policy prefix
 differs intentionally, so this estimates the joint effect of an explicit tool-use
 policy plus tool access, not tool availability alone. `tool_choice=auto` and the
-calculator policy requires at least one call. Execution order is the SHA256 order
+calculator policy requires at least one call. Submission order is the SHA256 order
 of `20260913|<eval_id>|<arm>`, which interleaves arms and levels.
+This fixes submission order; four concurrent workers mean completion order is not
+deterministic.
 
 - thinking: disabled so the vLLM 0.23 `spark25` parser can expose native tool
   calls; the shared prompt still requires a concise, visible derivation
@@ -102,8 +104,10 @@ unmodified English dataset question.
 
 Failure to call the tool is recorded as calculator-policy noncompliance, but it
 does not override the primary numeric score: a strict correct final answer remains
-correct. Tool adoption, valid-call rate, and policy compliance are reported
-separately. A paired answer transition is attributed to the full policy condition;
+correct. Tool adoption, executor-success rate, and required-call adherence are
+reported separately. Executor success means only that the arithmetic expression
+ran safely; it does not establish that the expression modeled the question
+correctly. A paired answer transition is attributed to the full policy condition;
 it is not described as caused by a tool when the trajectory made no call.
 
 ## Tool boundary
@@ -142,7 +146,9 @@ identical settings; both attempts remain logged. Samples are never replaced.
 We review all trajectories that are wrong or unparseable, all A/B disagreements,
 and all trajectories containing a tool call/error. In addition, the lowest-hash
 question in each config is preselected and both arms are reviewed regardless of
-outcome. Labels include coherent, arithmetic, semantic/planning, relevant-clause
+outcome. Here “lowest-hash” means the minimum frozen
+`request.user_prompt_sha256` within that config. Labels include coherent,
+arithmetic, semantic/planning, relevant-clause
 omission, unit, extraction-format, truncation, tool-protocol,
 dataset-ambiguity, right-answer/wrong-reasoning, and unclear. A
 right-answer/wrong-reasoning label requires a concrete erroneous equation or

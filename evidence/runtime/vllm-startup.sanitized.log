@@ -42,11 +42,11 @@
 (EngineCore pid=414) 
 (EngineCore pid=414) INFO 09-13 07:46:10 [default_loader.py:397] Loading weights took 1.48 seconds
 (EngineCore pid=414) INFO 09-13 07:46:10 [gpu_model_runner.py:5187] Model loading took 8.28 GiB memory and 1.873133 seconds
-(EngineCore pid=414) INFO 09-13 07:46:18 [backends.py:1089] Using cache directory: /root/.cache/vllm/torch_compile_cache/e68d081f1f/rank_0_0/backbone for vLLM's torch.compile
+(EngineCore pid=414) INFO 09-13 07:46:18 [backends.py:1089] Using cache directory: <CONTAINER_CACHE>/torch_compile_cache/<CACHE_KEY>/rank_0_0/backbone for vLLM's torch.compile
 (EngineCore pid=414) INFO 09-13 07:46:18 [backends.py:1148] Dynamo bytecode transform time: 7.53 s
 (EngineCore pid=414) INFO 09-13 07:46:22 [backends.py:378] Cache the graph of compile range (1, 8192) for later use
 (EngineCore pid=414) INFO 09-13 07:46:31 [backends.py:393] Compiling a graph for compile range (1, 8192) takes 12.83 s
-(EngineCore pid=414) INFO 09-13 07:46:34 [decorators.py:708] saved AOT compiled function to /root/.cache/vllm/torch_compile_cache/torch_aot_compile/b7ef5032f603b3a997e58329e3c9a2d348b67b59bc12acdc26f47b23177815d3/rank_0_0/model
+(EngineCore pid=414) INFO 09-13 07:46:34 [decorators.py:708] saved AOT compiled function to <CONTAINER_CACHE>/torch_compile_cache/torch_aot_compile/<CACHE_KEY>/rank_0_0/model
 (EngineCore pid=414) INFO 09-13 07:46:34 [monitor.py:53] torch.compile took 23.85 s in total
 (EngineCore pid=414) INFO 09-13 07:46:35 [monitor.py:81] Initial profiling/warmup run took 0.81 s
 (EngineCore pid=414) INFO 09-13 07:46:42 [gpu_model_runner.py:6412] Profiling CUDA graph memory: PIECEWISE=51 (largest=512), FULL=51 (largest=512)
@@ -120,4 +120,3 @@
 (APIServer pid=13) INFO:     <DOCKER_PEER>:<PORT> - "POST /v1/chat/completions HTTP/1.1" 200 OK
 (APIServer pid=13) INFO 09-13 07:50:20 [loggers.py:271] Engine 000: Avg prompt throughput: 2.6 tokens/s, Avg generation throughput: 3.5 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 64.2%
 (APIServer pid=13) INFO 09-13 07:50:30 [loggers.py:271] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 64.2%
-

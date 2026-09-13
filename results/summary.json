@@ -1,0 +1,272 @@
+{
+  "accuracy": {
+    "calculator": {
+      "main": {
+        "accuracy": 0.65,
+        "accuracy_percent": 65.0,
+        "correct": 13,
+        "total": 20,
+        "wilson_95": [
+          0.432854,
+          0.818808
+        ]
+      },
+      "overall_descriptive": {
+        "accuracy": 0.583333,
+        "accuracy_percent": 58.33,
+        "correct": 35,
+        "total": 60,
+        "wilson_95": [
+          0.457281,
+          0.699357
+        ]
+      },
+      "p1": {
+        "accuracy": 0.6,
+        "accuracy_percent": 60.0,
+        "correct": 12,
+        "total": 20,
+        "wilson_95": [
+          0.386582,
+          0.781193
+        ]
+      },
+      "p2": {
+        "accuracy": 0.5,
+        "accuracy_percent": 50.0,
+        "correct": 10,
+        "total": 20,
+        "wilson_95": [
+          0.299298,
+          0.700702
+        ]
+      }
+    },
+    "no_tool": {
+      "main": {
+        "accuracy": 0.85,
+        "accuracy_percent": 85.0,
+        "correct": 17,
+        "total": 20,
+        "wilson_95": [
+          0.639581,
+          0.947631
+        ]
+      },
+      "overall_descriptive": {
+        "accuracy": 0.75,
+        "accuracy_percent": 75.0,
+        "correct": 45,
+        "total": 60,
+        "wilson_95": [
+          0.627679,
+          0.842235
+        ]
+      },
+      "p1": {
+        "accuracy": 0.8,
+        "accuracy_percent": 80.0,
+        "correct": 16,
+        "total": 20,
+        "wilson_95": [
+          0.583983,
+          0.919342
+        ]
+      },
+      "p2": {
+        "accuracy": 0.6,
+        "accuracy_percent": 60.0,
+        "correct": 12,
+        "total": 20,
+        "wilson_95": [
+          0.386582,
+          0.781193
+        ]
+      }
+    }
+  },
+  "answer_format": {
+    "calculator": {
+      "parseable": 38,
+      "total": 60,
+      "truncated": 4
+    },
+    "no_tool": {
+      "parseable": 55,
+      "total": 60,
+      "truncated": 5
+    }
+  },
+  "calculator_behavior": {
+    "adoption_by_config": {
+      "main": {
+        "total": 20,
+        "trajectories_with_any_call": 13
+      },
+      "p1": {
+        "total": 20,
+        "trajectories_with_any_call": 12
+      },
+      "p2": {
+        "total": 20,
+        "trajectories_with_any_call": 15
+      }
+    },
+    "executor_errors": 0,
+    "executor_successful_calls": 63,
+    "note": "Call-count outcome groups are post-treatment and descriptive; they do not estimate a causal tool effect.",
+    "outcome_by_call_count_descriptive": {
+      "0": {
+        "accuracy": 0.8,
+        "accuracy_percent": 80.0,
+        "correct": 16,
+        "parseable": 17,
+        "total": 20,
+        "wilson_95": [
+          0.583983,
+          0.919342
+        ]
+      },
+      "1": {
+        "accuracy": 0.823529,
+        "accuracy_percent": 82.35,
+        "correct": 14,
+        "parseable": 16,
+        "total": 17,
+        "wilson_95": [
+          0.589705,
+          0.938089
+        ]
+      },
+      "2": {
+        "accuracy": 0.217391,
+        "accuracy_percent": 21.74,
+        "correct": 5,
+        "parseable": 5,
+        "total": 23,
+        "wilson_95": [
+          0.09664,
+          0.419035
+        ]
+      }
+    },
+    "required_call_adherence": 40,
+    "required_call_total": 60,
+    "terminal_tool_markup_after_two_calls": 18,
+    "total_calls": 63,
+    "trajectories_reaching_two_call_limit": 23,
+    "trajectories_with_any_call": 40
+  },
+  "denominator": {
+    "arms": 2,
+    "formal_trajectories": 120,
+    "pass_at": 1,
+    "questions": 60,
+    "samples_per_config": 20,
+    "self_consistency": false,
+    "ties": "not_applicable"
+  },
+  "failure_accounting": {
+    "finish_reasons": {
+      "length": 9,
+      "stop": 111
+    },
+    "infra_retries": 0,
+    "prediction_parse": {
+      "missing_or_multiple_final_answer_markers": 27,
+      "parsed": 93
+    },
+    "status_counts": {
+      "completed": 120
+    }
+  },
+  "interpretation_limits": [
+    "The 20 templates are an audit sample, not a leaderboard estimate.",
+    "Cross-config trends are not same-question causal comparisons.",
+    "The paired intervention combines a policy prefix and tool access.",
+    "Numeric substitution reduces verbatim memorization risk but cannot rule out template contamination."
+  ],
+  "paired_condition_diagnostics_descriptive": {
+    "calculator_policy_only_by_calculator_call_count": {
+      "0": 1,
+      "2": 2
+    },
+    "direct_policy_only_by_calculator_call_count": {
+      "0": 1,
+      "2": 12
+    },
+    "direct_policy_only_with_two_calls_and_terminal_tool_markup": 12,
+    "note": "Post-treatment decomposition only; differences belong to the combined policy-prefix-plus-tool condition, not the tool alone."
+  },
+  "paired_policy_comparison": {
+    "main": {
+      "both_correct": 13,
+      "both_wrong": 3,
+      "calculator_policy_only_correct": 0,
+      "direct_policy_only_correct": 4,
+      "holm_adjusted_p_across_three_configs": 0.375,
+      "mcnemar_exact_two_sided_p": 0.125,
+      "net_change_percentage_points": -20.0
+    },
+    "overall_descriptive": {
+      "both_correct": 32,
+      "both_wrong": 12,
+      "calculator_policy_only_correct": 3,
+      "direct_policy_only_correct": 13,
+      "net_change_percentage_points": -16.67,
+      "note": "No pooled significance test: configs reuse template blocks."
+    },
+    "p1": {
+      "both_correct": 11,
+      "both_wrong": 3,
+      "calculator_policy_only_correct": 1,
+      "direct_policy_only_correct": 5,
+      "holm_adjusted_p_across_three_configs": 0.4375,
+      "mcnemar_exact_two_sided_p": 0.21875,
+      "net_change_percentage_points": -20.0
+    },
+    "p2": {
+      "both_correct": 8,
+      "both_wrong": 6,
+      "calculator_policy_only_correct": 2,
+      "direct_policy_only_correct": 4,
+      "holm_adjusted_p_across_three_configs": 0.6875,
+      "mcnemar_exact_two_sided_p": 0.6875,
+      "net_change_percentage_points": -10.0
+    }
+  },
+  "protocol_commit": "cdfe83a112308380c6a4bae5adb9de14f38c7bc2",
+  "resource_observations": {
+    "api_tokens": {
+      "calculator": {
+        "completion_median": 417.5,
+        "completion_total": 41150,
+        "prompt_total": 66446,
+        "total": 107596
+      },
+      "no_tool": {
+        "completion_median": 290.0,
+        "completion_total": 39980,
+        "prompt_total": 12464,
+        "total": 52444
+      }
+    },
+    "episode_wall_seconds": {
+      "calculator": {
+        "median": 3.372073,
+        "sum": 330.620416
+      },
+      "no_tool": {
+        "median": 2.317054,
+        "sum": 319.980473
+      }
+    },
+    "formal_run_window": {
+      "end_to_end_seconds": 171.508993,
+      "finished_at": "2026-09-13T08:16:56.730534+00:00",
+      "started_at": "2026-09-13T08:14:05.221541+00:00"
+    },
+    "note": "Descriptive only; shared GPU, no throughput claim."
+  },
+  "schema_version": 1
+}

@@ -1,0 +1,23 @@
+{"eval_id":"p1-id10-i44","arm":"calculator","primary_label":"coherent","flags":["tool_call"],"evidence":"一次完整工具表达式正确编码三个计费区间并返回 29，终局逐段复核后输出 29。"}
+{"eval_id":"p1-id16-i36","arm":"no_tool","primary_label":"coherent","flags":[],"evidence":"独立核算 Wednesday 为 29×8+7×28=428、Thursday 为 41×8+21×28=916、Friday 为 1344，三日均值为 (428+916+1344)/3=896。"}
+{"eval_id":"p1-id16-i36","arm":"calculator","primary_label":"tool_protocol","flags":["tool_call"],"evidence":"正文已正确算出均值 896，但执行两次日收入调用后，第三轮仅输出文字化求和 <tool_call>，没有 FINAL_ANSWER。"}
+{"eval_id":"p1-id19-i05","arm":"no_tool","primary_label":"coherent","flags":[],"evidence":"24 道文学题取 18 分、8 道经济题取 2 分、其余两类各 24 道并各取 6 分，总计 32。"}
+{"eval_id":"p1-id19-i05","arm":"calculator","primary_label":"tool_protocol","flags":["tool_call"],"evidence":"调用前推导已得到 18+2+6+6=32，但两次调用只计算文学与经济题量，第三轮以文字化调用请求计算剩余题量而没有 FINAL_ANSWER。"}
+{"eval_id":"p1-id21-i34","arm":"calculator","primary_label":"coherent","flags":["tool_call"],"evidence":"正确列出 10+x+6.5+9+0.5=27 并解得 x=1，随后用工具验证总代入值为 27。"}
+{"eval_id":"p1-id24-i08","arm":"no_tool","primary_label":"truncation","flags":["self_corrected"],"evidence":"响应先把运动消耗错误地从可吃额度中再减去，后来自行纠正为可再摄入 1900+100-900=1100、即 4×60=240，但在写出 FINAL_ANSWER 前因 length 截断。"}
+{"eval_id":"p1-id24-i08","arm":"calculator","primary_label":"semantic_planning","flags":["tool_call"],"evidence":"把燃烧 100 卡错误处理为进一步减少可摄入量，使用 1900-900-100=900 而非 1900+100-900=1100，因此工具精确执行错误模型并输出 196.36 而非 240。"}
+{"eval_id":"p1-id25-i38","arm":"no_tool","primary_label":"relevant_clause_omission","flags":[],"evidence":"正确算出实际出行泳者 24 与舞蹈或辩论成员共 13，却把题面明确的 three groups 当成两组，只加 6 名而非 9 名啦啦队员，得到 43 而非 46。"}
+{"eval_id":"p1-id25-i38","arm":"calculator","primary_label":"truncation","flags":["calculator_policy_noncompliance"],"evidence":"响应反复纠结无需拆分的舞蹈与辩论人数，虽得到 24+13 的成员小计却未利用明确的三组来加 9 名啦啦队员，最终因 length 截断且从未调用工具。"}
+{"eval_id":"p1-id27-i42","arm":"no_tool","primary_label":"coherent","flags":[],"evidence":"100 封邮件的 12% 无需回复，剩余 88 封的一半再减 15 为每日 29 封，四日共 116 封。"}
+{"eval_id":"p1-id27-i42","arm":"calculator","primary_label":"tool_protocol","flags":["tool_call","self_corrected"],"evidence":"正文先正确得到 116；首个工具式误把 88 自乘得到 3857 后明确识别并纠正，但第二次调用后第三轮仅文字化请求计算 88/2-15，未输出 FINAL_ANSWER。"}
+{"eval_id":"p1-id33-i27","arm":"calculator","primary_label":"coherent","flags":["tool_call"],"evidence":"工具一次计算 (100-(23+41))/2=18，终局推导和答案均与独立核算一致。"}
+{"eval_id":"p1-id39-i26","arm":"no_tool","primary_label":"coherent","flags":[],"evidence":"受伤后每间需 30 分钟，70 间共 2100 分钟，占五天共 5×10×60=3000 个工作分钟的 70%。"}
+{"eval_id":"p1-id39-i26","arm":"calculator","primary_label":"coherent","flags":["tool_call"],"evidence":"单次工具表达式 (70×15×2)/(10×60×5)×100 完整计算所需比例并返回 70，终局逐项复核一致。"}
+{"eval_id":"p1-id40-i40","arm":"no_tool","primary_label":"coherent","flags":["self_corrected"],"evidence":"输出先只计促销覆盖的 21 磅，随即发现共买 23 磅并补上额外 2×20；总支出 380+11+378+5=774，余额 526。"}
+{"eval_id":"p1-id40-i40","arm":"calculator","primary_label":"tool_protocol","flags":["tool_call"],"evidence":"两次调用后第三轮仅文字化请求计算余额且无 FINAL_ANSWER；此外其模型始终漏计 23-21=2 磅原价糖，即使完成该式也只会得到错误的 566。"}
+{"eval_id":"p1-id44-i39","arm":"no_tool","primary_label":"semantic_planning","flags":[],"evidence":"把“男孩数为女孩数的四分之一”反向写成 8=(1/4)×boys，虚增为 32 个男孩并输出 20；正确是 boys=8/4=2、女孩占 80%。"}
+{"eval_id":"p1-id44-i39","arm":"calculator","primary_label":"coherent","flags":["tool_call"],"evidence":"正确理解 boys=8/4=2，两次工具调用分别验证男孩人数与 8/(8+2)×100=80。"}
+{"eval_id":"p1-id45-i31","arm":"no_tool","primary_label":"relevant_clause_omission","flags":["self_corrected"],"evidence":"忽略“14 feet between every plant”已经 including the plant's width，错误地把株宽 5 再加到间距上并得到 8 株和 24 元；按题意应为 140/14=10 株、买 5 株，50-6=44。"}
+{"eval_id":"p1-id45-i31","arm":"calculator","primary_label":"truncation","flags":["tool_call"],"evidence":"同样错误地把 14 英尺视为不含株宽，且唯一工具表达式只计算买入 3 株的占地 43；响应围绕 8 株与 138 英尺循环直至 length 截断，未给答案。"}
+{"eval_id":"p1-id49-i04","arm":"no_tool","primary_label":"coherent","flags":[],"evidence":"三处公寓数为 100+100+300=500，周基础收入为 500×5×0.5=1250，加上 12% 小费后为 1400。"}
+{"eval_id":"p1-id49-i04","arm":"calculator","primary_label":"tool_protocol","flags":["tool_call"],"evidence":"调用前已正确推出 1400，但两次调用只得到总户数 500 与基础收入 1250，第三轮以文字化调用请求计算 1250×1.12，未输出 FINAL_ANSWER。"}

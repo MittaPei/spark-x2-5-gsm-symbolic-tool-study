@@ -74,9 +74,11 @@ def wilson_interval(
     return center - margin, center + margin
 
 
-def exact_mcnemar_p(tool_harms: int, tool_helps: int) -> float:
-    discordant = tool_harms + tool_helps
+def exact_mcnemar_p(first_only: int, second_only: int) -> float:
+    discordant = first_only + second_only
     if discordant == 0:
         return 1.0
-    tail = sum(math.comb(discordant, k) for k in range(min(tool_harms, tool_helps) + 1))
+    tail = sum(
+        math.comb(discordant, k) for k in range(min(first_only, second_only) + 1)
+    )
     return min(1.0, 2 * tail / (2**discordant))
