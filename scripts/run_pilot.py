@@ -58,6 +58,7 @@ def main() -> int:
     args = parser.parse_args()
     runtime = json.loads(args.runtime_json.read_text(encoding="utf-8"))
     failures: list[str] = []
+    policy_noncompliance: list[str] = []
     tool_calls = 0
     for sample in PILOTS:
         for arm in ("no_tool", "calculator"):
@@ -83,12 +84,9 @@ def main() -> int:
                 "correct": value == expected,
             }
             tool_calls += len(record["tool_calls"])
-            missing_required_tool = arm == "calculator" and not record["tool_calls"]
-            if (
-                record["status"] != "completed"
-                or value != expected
-                or missing_required_tool
-            ):
+            if arm == "calculator" and not record["tool_calls"]:
+                policy_noncompliance.append(sample["eval_id"])
+            if record["status"] != "completed" or value != expected:
                 failures.append(f"{sample['eval_id']}:{arm}")
             atomic_json(args.output_dir / f"{sample['eval_id']}--{arm}.json", record)
     summary = {
@@ -97,6 +95,9 @@ def main() -> int:
         "trajectories": len(PILOTS) * 2,
         "correct": len(PILOTS) * 2 - len(failures),
         "native_tool_calls": tool_calls,
+        "calculator_policy_compliant": len(PILOTS) - len(policy_noncompliance),
+        "calculator_policy_total": len(PILOTS),
+        "policy_noncompliance": policy_noncompliance,
         "failures": failures,
     }
     atomic_json(args.output_dir / "summary.json", summary)

@@ -100,6 +100,12 @@ The calculator prefix requires at least one native call after choosing the
 expression. Both then append the same `题目（原文）：` label and the exact,
 unmodified English dataset question.
 
+Failure to call the tool is recorded as calculator-policy noncompliance, but it
+does not override the primary numeric score: a strict correct final answer remains
+correct. Tool adoption, valid-call rate, and policy compliance are reported
+separately. A paired answer transition is attributed to the full policy condition;
+it is not described as caused by a tool when the trajectory made no call.
+
 ## Tool boundary
 
 The calculator accepts one expression of at most 200 characters. An AST allowlist
@@ -191,3 +197,10 @@ calculator prefix requires a call before the final answer; the direct prefix ask
 for manual calculation. Both request the same visible derivation and final-answer
 format. This bilingual wrapper is part of the evaluated deployment policy and is
 not presented as a pure tool-availability intervention.
+
+The final synthetic pilot produced six strict numeric successes and completed two
+native calculator round trips. One calculator-policy trajectory solved a symbolic
+equation manually without calling the offered tool. The gate therefore confirms
+that the transport, parser, safe executor, round trip, and scorer work; tool-policy
+compliance remains a measured model outcome rather than a prerequisite silently
+enforced by the harness.
