@@ -1,0 +1,4 @@
+"""Spark-X2.5 GSM-Symbolic evaluation helpers."""
+
+MODEL_REVISION = "5e10fcc0286756aebf7c41dc52c1e42d95c70281"
+DATASET_REVISION = "93b5b3758d9d9841ffe81d6cd2ae2b030685b078"

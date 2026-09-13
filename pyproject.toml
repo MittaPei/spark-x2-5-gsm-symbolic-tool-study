@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spark-x25-gsm-symbolic-tool-study"
+version = "0.1.0"
+description = "Reproducible paired evaluation of Spark-X2.5 math reasoning with a safe calculator"
+requires-python = ">=3.11"
+dependencies = [
+  "httpx==0.28.1",
+  "huggingface-hub==0.36.2",
+  "openai==2.21.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==9.0.2", "ruff==0.15.5"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
