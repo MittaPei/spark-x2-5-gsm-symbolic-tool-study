@@ -1,0 +1,11 @@
+{
+  "correct": 4,
+  "failures": [
+    "synthetic-pilot-01:calculator",
+    "synthetic-pilot-02:calculator"
+  ],
+  "formal_sample_overlap": 0,
+  "native_tool_calls": 1,
+  "status": "FAIL",
+  "trajectories": 6
+}

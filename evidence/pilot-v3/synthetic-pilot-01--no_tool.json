@@ -1,0 +1,146 @@
+{
+  "arm": "no_tool",
+  "config": "synthetic",
+  "dataset": "synthetic_pilot",
+  "dataset_revision": null,
+  "eval_id": "synthetic-pilot-01",
+  "finished_at": "2026-09-13T08:06:14.833899+00:00",
+  "id": -1,
+  "instance": 1,
+  "model": "XHToken/Spark-X2.5-4B",
+  "model_revision": "5e10fcc0286756aebf7c41dc52c1e42d95c70281",
+  "pilot_excluded_from_formal_results": true,
+  "pilot_score": {
+    "correct": true,
+    "gold": "4019",
+    "parse_error": null,
+    "prediction": "4019"
+  },
+  "protocol_commit": "0a10d7c4cf9caa5624c7e0bf8be9faef3c633c7d",
+  "request": {
+    "policy": "POLICY: No calculator is available. Solve manually and show a concise, checkable derivation.",
+    "policy_sha256": "e5a2097878e42c8d2e32547234c87646b4965c0420aa270f4990e9dba0ee128e",
+    "rendered_user_message_sha256": "16ef221f4e15ee2801a3ecb604ab7fe6a52fdac9d7e3c1d75a2af70508fe1a40",
+    "system_prompt": "Solve the supplied math problem carefully. Follow the user policy. After any tool result, give a concise, checkable derivation. End with exactly one line: FINAL_ANSWER: <number>, where <number> has no unit. Do not write anything after that line.",
+    "system_prompt_sha256": "2c71a3eb7ca4383b8fcd10a24f022425e152e6369439978e28d9630ead992f43",
+    "tool_schema": null,
+    "user_prompt": "If a calculator tool is available, use it. A warehouse has 137 boxes with 29 bolts each and then receives 46 more bolts. How many bolts does it have?",
+    "user_prompt_ref": "embedded_synthetic_pilot",
+    "user_prompt_sha256": "76aa01cd8eaa9eea5ea05ee2aa88cc7da99aec43ec9922342c2e346918fa396f"
+  },
+  "runtime": {
+    "captured_at_utc": "2026-09-13T07:48:47Z",
+    "client": {
+      "httpx": "0.28.1",
+      "huggingface_hub": "0.36.2",
+      "openai": "2.21.0",
+      "python": "3.12.7",
+      "uv": "0.10.4"
+    },
+    "dataset": {
+      "configs": [
+        "main",
+        "p1",
+        "p2"
+      ],
+      "repo_id": "apple/GSM-Symbolic",
+      "revision": "93b5b3758d9d9841ffe81d6cd2ae2b030685b078",
+      "source_file_sha256": {
+        "main/test.jsonl": "945055837b232bd9b56827b1e3a5aa019075f29e8ba4669d9a9df8b4439a291f",
+        "p1/test.jsonl": "5478fe81b9cdc5d9447514ca68b0dfbb6cb01b7227fefadf143469b103b592ac",
+        "p2/test.jsonl": "00496e6c36bd746d56b28cffcd9385f78f0568a5fe1543650ddf9b55d398251c"
+      },
+      "split": "test"
+    },
+    "hardware": {
+      "driver": "550.144.03",
+      "environment": "existing shared research server",
+      "gpu": "NVIDIA A800-SXM4-80GB",
+      "host_os": "Linux 5.15.0-91-generic x86_64, glibc 2.35",
+      "incremental_cost": "none; whole-server billing unknown",
+      "selected_gpu_memory_after_start_and_pilot_mib": {
+        "free": 42894,
+        "used": 38329
+      },
+      "selected_gpu_memory_before_start_mib": {
+        "free": 63851,
+        "used": 17371
+      }
+    },
+    "model": {
+      "cache_note": "Small files were fetched at the pinned revision. Existing weight blobs were reused only after every local SHA256 matched the pinned Hugging Face LFS OID.",
+      "dtype": "bfloat16",
+      "quantization": null,
+      "repo_id": "XHToken/Spark-X2.5-4B",
+      "revision": "5e10fcc0286756aebf7c41dc52c1e42d95c70281",
+      "weight_lfs_sha256": {
+        "model-00001-of-00005.safetensors": "cc36bfe9ca2b839df89fd8c0c94f566f6717bd07ae859dfad074b303f90bdf5b",
+        "model-00002-of-00005.safetensors": "d98ea6b9059433181042c1ff9fbec167ae2f0850029787c82520d04a04942952",
+        "model-00003-of-00005.safetensors": "0ba22891378cf0ef3d9bf1f73c3159df3fc3dab8aa6e17679a9ffe7e9d867526",
+        "model-00004-of-00005.safetensors": "6aae0314fdf8fc3801677c017f296bcb14bc16095286c3bd1e7ce27e0398a113",
+        "model-00005-of-00005.safetensors": "ffe48ea1c2ee668407dd6ded0c02529da9c54580a8c38f6e53cf902b85a1bd95"
+      }
+    },
+    "plugin": {
+      "commit": "ddef50f6f1eda417b6716b27e0aa35d4a6cd0cf3",
+      "package": "vllm-spark2_5-plugin==0.1.0",
+      "repository": "XHToken/Spark-plugin",
+      "tree": "51e375fbfc53347019ea5812ee5759d39ec71d74",
+      "wheel_sha256": "a7728f6482fffd734ddbedd230a6e066be6263132c2b59c648f39bb28977c09b"
+    },
+    "protocol_commit": "0a10d7c4cf9caa5624c7e0bf8be9faef3c633c7d",
+    "schema_version": 1,
+    "server": {
+      "gpu_memory_utilization": 0.25,
+      "image": "vllm/vllm-openai:v0.23.0",
+      "image_id": "sha256:f37691f675bb82f734f606de8af90e777d3f80a20b120e699fd43fd10e60b8d7",
+      "image_repo_digest": "sha256:6d8429e38e3747723ca07ee1b17972e09bb9c51c4032b266f24fb1cc3b22ed8f",
+      "max_model_len": 32768,
+      "network_scope": "host loopback only",
+      "runtime": "vLLM 0.23.0",
+      "served_model_name": "spark-x2.5-4b",
+      "tensor_parallel_size": 1
+    }
+  },
+  "schema_version": 1,
+  "seed": 21252418,
+  "settings": {
+    "max_cumulative_completion_tokens": 4096,
+    "max_tool_calls": 0,
+    "n": 1,
+    "parallel_tool_calls": false,
+    "temperature": 0.0,
+    "thinking": false,
+    "top_k": -1,
+    "top_p": 1.0
+  },
+  "started_at": "2026-09-13T08:06:12.389777+00:00",
+  "status": "completed",
+  "terminal_content": "We are given:\n\n- 137 boxes  \n- Each box contains 29 bolts  \n- Then 46 additional bolts are received  \n\n**Step 1: Find total bolts from boxes**  \nMultiply number of boxes by bolts per box:  \n137 × 29\n\nBreak this down:\n137 × 29 = 137 × (30 − 1)  \n= (137 × 30) − (137 × 1)  \n= 4110 − 137  \n= 3973\n\n**Step 2: Add the extra bolts received**  \n3973 + 46 = 4019\n\n**Derivation check:**  \n137 × 29:  \n- 100 × 29 = 2900  \n- 30 × 29 = 870  \n- 7 × 29 = 203  \nSum: 2900 + 870 = 3770; 3770 + 203 = 3973 ✔️  \n3973 + 46 = 4019 ✔️\n\nFINAL_ANSWER: 4019",
+  "terminal_finish_reason": "stop",
+  "tool_call_count": 0,
+  "tool_calls": [],
+  "total_completion_tokens": 299,
+  "total_prompt_tokens": 144,
+  "turns": [
+    {
+      "finish_reason": "stop",
+      "max_tokens_requested": 4096,
+      "message": {
+        "content": "We are given:\n\n- 137 boxes  \n- Each box contains 29 bolts  \n- Then 46 additional bolts are received  \n\n**Step 1: Find total bolts from boxes**  \nMultiply number of boxes by bolts per box:  \n137 × 29\n\nBreak this down:\n137 × 29 = 137 × (30 − 1)  \n= (137 × 30) − (137 × 1)  \n= 4110 − 137  \n= 3973\n\n**Step 2: Add the extra bolts received**  \n3973 + 46 = 4019\n\n**Derivation check:**  \n137 × 29:  \n- 100 × 29 = 2900  \n- 30 × 29 = 870  \n- 7 × 29 = 203  \nSum: 2900 + 870 = 3770; 3770 + 203 = 3973 ✔️  \n3973 + 46 = 4019 ✔️\n\nFINAL_ANSWER: 4019",
+        "role": "assistant",
+        "tool_calls": []
+      },
+      "seed": 21252418,
+      "tools_available": false,
+      "turn": 1,
+      "usage": {
+        "completion_tokens": 299,
+        "prompt_tokens": 144,
+        "total_tokens": 443
+      },
+      "wall_seconds": 2.40928
+    }
+  ],
+  "wall_seconds": 2.44412
+}

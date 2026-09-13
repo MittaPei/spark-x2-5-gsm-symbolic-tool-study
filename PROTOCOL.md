@@ -97,7 +97,8 @@ that line.
 
 The direct prefix says no calculator is available and asks for a manual solution.
 The calculator prefix requires at least one native call after choosing the
-expression. Both then append `PROBLEM:` and the exact unmodified dataset question.
+expression. Both then append the same `题目（原文）：` label and the exact,
+unmodified English dataset question.
 
 ## Tool boundary
 
@@ -179,3 +180,14 @@ reframed the arms as two explicit deployment policies. The calculator arm now
 uses an arm-specific mandatory-tool prefix; the direct arm uses a manual-solving
 prefix. The report therefore attributes any paired difference to the combined
 policy-plus-tool intervention, never to tool availability in isolation.
+
+The second replacement pilot used that English policy prefix. All six numeric
+answers passed, but only one of three calculator trajectories emitted a native
+call; the other two merely narrated that they would use a calculator. Before any
+formal generation, a final interface-only change replaced both arm prefixes with
+parallel Chinese instructions while retaining each English dataset question
+verbatim. This matches the model's verified native-tool instruction path. The
+calculator prefix requires a call before the final answer; the direct prefix asks
+for manual calculation. Both request the same visible derivation and final-answer
+format. This bilingual wrapper is part of the evaluated deployment policy and is
+not presented as a pure tool-availability intervention.

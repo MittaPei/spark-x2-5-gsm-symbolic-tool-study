@@ -22,13 +22,13 @@ SYSTEM_PROMPT = (
     "after that line."
 )
 DIRECT_POLICY = (
-    "POLICY: No calculator is available. Solve manually and show a concise, "
-    "checkable derivation."
+    "请独立理解下面的英文数学题并手工计算，不要使用任何外部工具。"
+    "给出简洁、可检查的推导，并以 FINAL_ANSWER: <number> 结尾。"
 )
 CALCULATOR_POLICY = (
-    "POLICY: You must call the calculator tool at least once before giving a final "
-    "answer. First determine the arithmetic expression that represents the story, "
-    "then call the tool."
+    "请先理解下面的英文数学题并确定所需算式，然后必须调用 calculator 工具"
+    "精确计算。不要在工具返回前给最终答案。工具返回后再简要说明推导，并以 "
+    "FINAL_ANSWER: <number> 结尾。"
 )
 CALCULATOR_TOOL = {
     "type": "function",
@@ -111,7 +111,7 @@ def run_episode(
 
     seed = episode_seed(str(sample["eval_id"]))
     policy = CALCULATOR_POLICY if arm == "calculator" else DIRECT_POLICY
-    user_content = f"{policy}\n\nPROBLEM:\n{question}"
+    user_content = f"{policy}\n\n题目（原文）：\n{question}"
     record: dict[str, Any] = {
         "schema_version": 1,
         "eval_id": sample["eval_id"],

@@ -54,7 +54,7 @@ def main() -> int:
     parser.add_argument("--model", default="spark-x2.5-4b")
     parser.add_argument("--protocol-commit", required=True)
     parser.add_argument("--runtime-json", type=Path, required=True)
-    parser.add_argument("--output-dir", type=Path, default=Path("evidence/pilot-v3"))
+    parser.add_argument("--output-dir", type=Path, default=Path("evidence/pilot-v4"))
     args = parser.parse_args()
     runtime = json.loads(args.runtime_json.read_text(encoding="utf-8"))
     failures: list[str] = []

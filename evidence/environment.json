@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "captured_at_utc": "2026-09-13T07:48:47Z",
-  "protocol_commit": "3627caffd5095bdcf082a8cc3b8e10f1b3253ea8",
+  "protocol_commit": "0a10d7c4cf9caa5624c7e0bf8be9faef3c633c7d",
   "model": {
     "repo_id": "XHToken/Spark-X2.5-4B",
     "revision": "5e10fcc0286756aebf7c41dc52c1e42d95c70281",
