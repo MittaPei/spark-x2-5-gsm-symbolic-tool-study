@@ -17,18 +17,20 @@ from .calculator import CalculatorError, calculate
 
 SYSTEM_PROMPT = (
     "Solve the math problem step by step. If a calculator tool is available, you "
-    "may use it only for arithmetic after deciding what to compute; otherwise "
-    "calculate yourself. End with exactly one line: FINAL_ANSWER: <number>, where "
-    "<number> is one integer, decimal, or fraction and has no unit. Do not write "
-    "anything after that line."
+    "must call it at least once, only for arithmetic after deciding what to "
+    "compute; otherwise calculate yourself. After any tool result, show a concise, "
+    "checkable derivation. End with exactly one line: FINAL_ANSWER: <number>, "
+    "where <number> is one integer, decimal, or fraction and has no unit. Do not "
+    "write anything after that line."
 )
 CALCULATOR_TOOL = {
     "type": "function",
     "function": {
-        "name": "calculate",
+        "name": "calculator",
         "description": (
-            "Evaluate one already-formulated arithmetic expression exactly. This "
-            "tool does not interpret or solve the word problem."
+            "Exactly evaluate one arithmetic expression. When this tool is "
+            "available, it must be called at least once. It does not interpret "
+            "or solve the word problem."
         ),
         "parameters": {
             "type": "object",
@@ -115,7 +117,7 @@ def run_episode(
         "protocol_commit": protocol_commit,
         "seed": seed,
         "settings": {
-            "thinking": True,
+            "thinking": False,
             "temperature": 0.0,
             "top_p": 1.0,
             "top_k": -1,
@@ -174,7 +176,7 @@ def run_episode(
                 "extra_body": {
                     "top_k": -1,
                     "repetition_penalty": 1.0,
-                    "chat_template_kwargs": {"enable_thinking": True},
+                    "chat_template_kwargs": {"enable_thinking": False},
                 },
             }
             if tools:

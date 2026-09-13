@@ -35,6 +35,11 @@ def test_prediction_requires_one_marker() -> None:
     assert extract_prediction("FINAL_ANSWER: 2\nFINAL_ANSWER: 2")[2] is not None
 
 
+def test_prediction_accepts_model_template_boundary() -> None:
+    raw, value, error = extract_prediction("hidden trace</think>FINAL_ANSWER: 4019")
+    assert (raw, value, error) == ("4019", parse_number("4019"), None)
+
+
 def test_statistics_known_values() -> None:
     low, high = wilson_interval(10, 20)
     assert low == pytest.approx(0.299298, abs=1e-6)

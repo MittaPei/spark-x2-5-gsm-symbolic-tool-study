@@ -67,7 +67,8 @@ The system and user text are byte-identical across arms. Only tool availability
 differs. `tool_choice=auto`; using the calculator is optional. Execution order is
 the SHA256 order of `20260913|<eval_id>|<arm>`, which interleaves arms and levels.
 
-- thinking: enabled
+- thinking: disabled so the vLLM 0.23 `spark25` parser can expose native tool
+  calls; the shared prompt still requires a concise, visible derivation
 - temperature: 0.0
 - top_p: 1.0
 - top_k: -1
@@ -85,9 +86,10 @@ the operational cost. Timing is descriptive because the GPU server is shared.
 Shared prompt:
 
 ```text
-Solve the math problem step by step. If a calculator tool is available, you may
-use it only for arithmetic after deciding what to compute; otherwise calculate
-yourself. End with exactly one line: FINAL_ANSWER: <number>, where <number> is
+Solve the math problem step by step. If a calculator tool is available, you must
+call it at least once, only for arithmetic after deciding what to compute;
+otherwise calculate yourself. After any tool result, show a concise, checkable
+derivation. End with exactly one line: FINAL_ANSWER: <number>, where <number> is
 one integer, decimal, or fraction and has no unit. Do not write anything after
 that line.
 ```
@@ -147,3 +149,20 @@ Numeric substitutions reduce verbatim-answer memorization risk but do not prove
 absence of template contamination. Dataset rationales are not treated as gold
 proofs; only final `####` values are scored, and any observed rationale defects
 are disclosed.
+
+## Pre-formal pilot amendment
+
+The initial synthetic pilot at protocol commit `542eb3e5a3a41cbe33ff6f4192a6663a7de075a4`
+generated no formal-sample result. It showed that `enable_thinking=true` under the
+tested vLLM 0.23 integration placed the reasoning and closing `</think>` marker in
+ordinary content and did not expose native tool calls for the shared prompt. Five
+of six otherwise numeric-correct pilot responses also attached `FINAL_ANSWER`
+directly to that closing marker, which the first strict parser rejected.
+
+Before formal generation, the protocol was therefore amended to use
+`enable_thinking=false`, the parser-validated function name `calculator`, and a
+shared instruction that requires at least one call when the tool exists. The
+scorer removes at most the model template's final `</think>` boundary before
+applying the same anchored final-answer rule. This is interface calibration on
+three synthetic prompts, not adaptation to formal scores. The failed pilot
+summary and replacement pilot are retained as evidence.

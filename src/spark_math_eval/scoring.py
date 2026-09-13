@@ -47,7 +47,8 @@ def extract_prediction(
 ) -> tuple[str | None, Fraction | None, str | None]:
     if not content:
         return None, None, "missing_content"
-    matches = PREDICTION_RE.findall(content)
+    visible_content = content.rsplit("</think>", 1)[-1].lstrip()
+    matches = PREDICTION_RE.findall(visible_content)
     if len(matches) != 1:
         return None, None, "missing_or_multiple_final_answer_markers"
     raw = matches[0].strip()
